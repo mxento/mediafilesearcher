@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Server File Search</title>
+    <!-- Load Tailwind CSS from CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Align to top for longer content */
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 12px; /* Rounded corners */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 32px;
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .search-input {
+            border: 1px solid #d1d5db;
+            border-radius: 8px; /* Rounded corners */
+            padding: 12px 16px;
+            font-size: 16px;
+            width: 100%;
+            transition: border-color 0.2s;
+        }
+        .search-input:focus {
+            outline: none;
+            border-color: #3b82f6; /* Blue border on focus */
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+        }
+        .search-button {
+            background-color: #3b82f6; /* Blue background */
+            color: #ffffff;
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 8px; /* Rounded corners */
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+            box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+        }
+        .search-button:hover {
+            background-color: #2563eb; /* Darker blue on hover */
+            transform: translateY(-1px);
+        }
+        .search-button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
+        }
+        .results-container {
+            background-color: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px; /* Rounded corners */
+            padding: 20px;
+            min-height: 150px;
+            max-height: 60vh; /* Max height for scrollability */
+            overflow-y: auto; /* Scroll for long results */
+            white-space: pre-wrap; /* Preserve whitespace and wrap text */
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #374151;
+        }
+        .result-item {
+            padding: 8px 0;
+            border-bottom: 1px dashed #e5e7eb;
+        }
+        .result-item:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="container">
+        <h1 class="text-3xl font-bold text-gray-800 text-center mb-4">Media Server File Search</h1>
+
+        <div class="flex flex-col sm:flex-row gap-4">
+            <input type="text" id="searchInput" placeholder="Enter file name or path to search..." class="search-input flex-grow">
+            <button id="searchButton" class="search-button">Search Files</button>
+        </div>
+
+        <div id="results" class="results-container">
+            <p class="text-gray-500 text-center">Enter a search term and click 'Search' to see results.</p>
+        </div>
+    </div> 
+    
+<script>
+    let fileData = null;
+
+    const searchInput = document.getElementById('searchInput');
+    const searchButton = document.getElementById('searchButton');
+    const resultsDiv = document.getElementById('results');
+    const fileStatusSpan = document.getElementById('fileStatus'); // Added to display loading status
+
+    // Function to perform the search (same as before)
+    function performSearch() {
+        if (fileData === null) {
+            resultsDiv.innerHTML = '<p class="text-red-500 text-center">Error: Data not loaded. Please refresh or check server.</p>';
+            return;
+        }
+
+        const query = searchInput.value.toLowerCase().trim();
+        resultsDiv.innerHTML = '';
+
+        if (query === '') {
+            resultsDiv.innerHTML = '<p class="text-gray-500 text-center">Enter a search term and click \'Search\' to see results.</p>';
+            return;
+        }
+
+        const lines = fileData.split('\n');
+        const foundResults = [];
+
+        for (const line of lines) {
+            if (line.toLowerCase().includes(query)) {
+                foundResults.push(line.trim());
+            }
+        }
+
+        if (foundResults.length > 0) {
+            foundResults.forEach(result => {
+                const p = document.createElement('p');
+                p.classList.add('result-item');
+                p.textContent = result;
+                resultsDiv.appendChild(p);
+            });
+            resultsDiv.scrollTop = 0;
+        } else {
+            resultsDiv.innerHTML = `<p class="text-gray-500 text-center">No results found for "${query}".</p>`;
+        }
+    }
+
+    // Function to load the data file using Fetch API
+    async function loadDataFile() {
+        try {
+            fileStatusSpan.textContent = 'Loading datafile.txt...';
+            const response = await fetch('datafile.txt'); // Fetch the file
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            fileData = await response.text(); // Get the text content
+            fileStatusSpan.textContent = 'datafile.txt loaded successfully.';
+            searchInput.disabled = false;
+            searchButton.disabled = false;
+            resultsDiv.innerHTML = '<p class="text-gray-500 text-center">File loaded. Enter a search term and click \'Search\'.</p>';
+        } catch (error) {
+            console.error('Error loading data file:', error);
+            fileStatusSpan.textContent = 'Error loading datafile.txt. Check console.';
+            resultsDiv.innerHTML = '<p class="text-red-500 text-center">Could not load `datafile.txt`. Ensure it\'s in the same directory and server is running.</p>';
+            searchInput.disabled = true;
+            searchButton.disabled = true;
+            fileData = null;
+        }
+    }
+
+    // Event listeners
+    searchButton.addEventListener('click', performSearch);
+    searchInput.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+            performSearch();
+        }
+    });
+
+    // Load data file automatically when the page loads
+    window.onload = () => {
+        searchInput.disabled = true;
+        searchButton.disabled = true;
+        resultsDiv.innerHTML = '<p class="text-gray-500 text-center">Attempting to load `datafile.txt`...</p>';
+        loadDataFile(); // Trigger load on page load
+    };
+</script>
+</body>
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Server File Search (SQLite)</title>
+    <!-- Load Tailwind CSS from CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load SQL.js library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/sql-wasm.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 32px;
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .search-input {
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 16px;
+            width: 100%;
+            transition: border-color 0.2s;
+        }
+        .search-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+        }
+        .search-button, .load-button {
+            background-color: #3b82f6;
+            color: #ffffff;
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+            box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+            text-align: center;
+        }
+        .search-button:hover, .load-button:hover {
+            background-color: #2563eb;
+            transform: translateY(-1px);
+        }
+        .search-button:active, .load-button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
+        }
+        .search-button:disabled, .load-button:disabled {
+            background-color: #9ca3af;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+        .results-container {
+            background-color: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 20px;
+            min-height: 150px;
+            max-height: 60vh;
+            overflow-y: auto;
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #374151;
+        }
+        .result-item {
+            padding: 8px 0;
+            border-bottom: 1px dashed #e5e7eb;
+        }
+        .result-item:last-child {
+            border-bottom: none;
+        }
+        .loading-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left-color: #3b82f6;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="container">
+        <h1 class="text-3xl font-bold text-gray-800 text-center mb-4">Media Server File Search (SQLite)</h1>
+
+        <div class="flex flex-col sm:flex-row gap-4 mb-4 items-center">
+            <input type="file" id="fileInput" accept=".db" class="hidden">
+            <label for="fileInput" id="loadButton" class="load-button flex-shrink-0">Load mediadata.db</label>
+            <span id="fileStatus" class="text-sm text-gray-600 flex items-center">
+                <span class="loading-spinner hidden" id="spinner"></span>
+                No database loaded.
+            </span>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-4">
+            <input type="text" id="searchInput" placeholder="Enter file name or path to search..." class="search-input flex-grow" disabled>
+            <button id="searchButton" class="search-button" disabled>Search Files</button>
+        </div>
+
+        <div id="results" class="results-container">
+            <p class="text-gray-500 text-center">Please load `mediadata.db` to begin searching.</p>
+        </div>
+    </div>
+
+    <script>
+        let DB = null; // Will hold the SQL.js database instance
+
+        const fileInput = document.getElementById('fileInput');
+        const loadButton = document.getElementById('loadButton');
+        const fileStatusSpan = document.getElementById('fileStatus');
+        const spinner = document.getElementById('spinner');
+        const searchInput = document.getElementById('searchInput');
+        const searchButton = document.getElementById('searchButton');
+        const resultsDiv = document.getElementById('results');
+
+        // Function to update UI state (disabled/enabled inputs/buttons)
+        function updateUI(dbLoaded) {
+            searchInput.disabled = !dbLoaded;
+            searchButton.disabled = !dbLoaded;
+            loadButton.disabled = false; // Always allow loading a new file
+        }
+
+        // Function to perform the search
+        function performSearch() {
+            if (!DB) {
+                resultsDiv.innerHTML = '<p class="text-red-500 text-center">Error: No database loaded. Please load `mediadata.db` first.</p>';
+                return;
+            }
+
+            const query = searchInput.value.toLowerCase().trim();
+            resultsDiv.innerHTML = ''; // Clear previous results
+
+            if (query === '') {
+                resultsDiv.innerHTML = '<p class="text-gray-500 text-center">Enter a search term and click \'Search\' to see results.</p>';
+                return;
+            }
+
+            try {
+                // Use parameterized query to prevent SQL injection and handle special characters
+                const statement = DB.prepare("SELECT size, path FROM data WHERE LOWER(path) LIKE '%' || ? || '%'");
+                const rows = statement.getAsObject({1: query}); // Execute and get results as objects
+
+                if (rows.length > 0) {
+                    rows.forEach(row => {
+                        const p = document.createElement('p');
+                        p.classList.add('result-item');
+                        p.textContent = `${row.size}\t${row.path}`; // Format output like du -lah
+                        resultsDiv.appendChild(p);
+                    });
+                    resultsDiv.scrollTop = 0;
+                } else {
+                    resultsDiv.innerHTML = `<p class="text-gray-500 text-center">No results found for "${query}".</p>`;
+                }
+            } catch (e) {
+                console.error("SQL Query Error:", e);
+                resultsDiv.innerHTML = `<p class="text-red-500 text-center">Error executing query: ${e.message}</p>`;
+            }
+        }
+
+        // Initialize SQL.js and handle file loading
+        async function initSqlJsAndLoadFile(arrayBuffer) {
+            spinner.classList.remove('hidden');
+            fileStatusSpan.textContent = 'Initializing database...';
+
+            try {
+                const SQL = await initSqlJs({
+                    // Required for sql-wasm.wasm to be loaded
+                    locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/${file}`
+                });
+                DB = new SQL.Database(new Uint8Array(arrayBuffer));
+                fileStatusSpan.textContent = `Database loaded successfully.`;
+                updateUI(true); // Enable search functionality
+                resultsDiv.innerHTML = '<p class="text-gray-500 text-center">Database loaded. Enter a search term and click \'Search\'.</p>';
+            } catch (err) {
+                console.error("Error initializing SQL.js or loading database:", err);
+                fileStatusSpan.textContent = `Error loading database: ${err.message}`;
+                updateUI(false); // Keep search disabled
+                resultsDiv.innerHTML = '<p class="text-red-500 text-center">Failed to load database. Check console for details.</p>';
+            } finally {
+                spinner.classList.add('hidden');
+            }
+        }
+
+        // Event listener for when a file is selected (mediadata.db)
+        fileInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+
+            if (!file) {
+                fileStatusSpan.textContent = 'No database file selected.';
+                updateUI(false);
+                DB = null;
+                resultsDiv.innerHTML = '<p class="text-gray-500 text-center">Please load `mediadata.db` to begin searching.</p>';
+                return;
+            }
+
+            if (!file.name.toLowerCase().endsWith('.db')) {
+                fileStatusSpan.textContent = 'Please select an SQLite database (.db) file.';
+                updateUI(false);
+                DB = null;
+                resultsDiv.innerHTML = '<p class="text-red-500 text-center">Invalid file type. Please select a .db file.</p>';
+                return;
+            }
+
+            fileStatusSpan.textContent = `Reading "${file.name}"...`;
+            spinner.classList.remove('hidden');
+            updateUI(false); // Disable search during loading
+
+            const reader = new FileReader();
+
+            reader.onload = (e) => {
+                const arrayBuffer = e.target.result;
+                initSqlJsAndLoadFile(arrayBuffer);
+            };
+
+            reader.onerror = () => {
+                fileStatusSpan.textContent = 'Error reading file.';
+                spinner.classList.add('hidden');
+                updateUI(false);
+                DB = null;
+                resultsDiv.innerHTML = '<p class="text-red-500 text-center">Error loading file. Please try again.</p>';
+            };
+
+            reader.readAsArrayBuffer(file); // Read the file as an ArrayBuffer for SQL.js
+        });
+
+        // Event listeners for search
+        searchButton.addEventListener('click', performSearch);
+        searchInput.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                performSearch();
+            }
+        });
+
+        // Initial state on load
+        window.onload = () => {
+            updateUI(false);
+            fileStatusSpan.textContent = 'Please load `mediadata.db` to begin searching.';
+        };
+    </script>
+</body>
+</html>

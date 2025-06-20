@@ -1,0 +1,210 @@
+4.0K    ./.DS_Store
+12G     ./Movies/TheMatrix.mkv
+8.5G    ./Movies/Inception.mkv
+5.2G    ./Movies/Dune.2021.mkv
+7.1G    ./Movies/Arrival.mkv
+3.1G    ./Movies/BladeRunner2049.mkv
+1.5G    ./TV Shows/BreakingBad/S01E01.mp4
+1.2G    ./TV Shows/BreakingBad/S01E02.mp4
+1.8G    ./TV Shows/TheOffice/S01E01.avi
+2.1G    ./TV Shows/TheOffice/S01E02.avi
+980M    ./Music/ArtistA/Album1/Song1.mp3
+750M    ./Music/ArtistA/Album1/Song2.mp3
+1.2G    ./Music/ArtistB/Album2/Song3.flac
+1.1G    ./Music/ArtistB/Album2/Song4.flac
+250M    ./Photos/Vacation2023/IMG_0001.jpg
+310M    ./Photos/Vacation2023/IMG_0002.jpg
+150M    ./Documents/MeetingNotes.pdf
+50M     ./Documents/ReportFinal.docx
+2.3G    ./Games/Cyberpunk2077/game.exe
+1.9G    ./Games/Witcher3/game.exe
+3.4G    ./Games/Starfield/data.pak
+5.1M    ./Backups/config_2023_01_15.zip
+12M     ./Backups/photos_2024_03_20.tar.gz
+4.0K    ./Temporary/tempfile.log
+1.1G    ./Movies/PulpFiction.mp4
+890M    ./Movies/Interstellar.mp4
+6.7G    ./Movies/Parasite.mkv
+1.4G    ./TV Shows/StrangerThings/S01E01.mkv
+1.6G    ./TV Shows/StrangerThings/S01E02.mkv
+780M    ./Music/Classical/BeethovenSymphony.flac
+620M    ./Music/Jazz/MilesDavis.mp3
+450M    ./Photos/Nature/forest_view.webp
+550M    ./Photos/Nature/mountain_hike.webp
+3.5G    ./Movies/SpiritedAway.mkv
+2.9G    ./Movies/Goodfellas.mp4
+1.2G    ./TV Shows/TheCrown/S01E01.mp4
+1.3G    ./TV Shows/TheCrown/S01E02.mp4
+900M    ./Music/Rock/QueenGreatestHits.mp3
+1.1G    ./Music/Pop/TaylorSwift.flac
+220M    ./Photos/Events/BirthdayParty.jpg
+280M    ./Photos/Events/Wedding.jpg
+4.2G    ./Movies/LordOfTheRings/Fellowship.mkv
+3.8G    ./Movies/LordOfTheRings/TwoTowers.mkv
+4.1G    ./Movies/LordOfTheRings/ReturnOfTheKing.mkv
+1.5G    ./TV Shows/GameOfThrones/S01E01.mp4
+1.6G    ./TV Shows/GameOfThrones/S01E02.mp4
+880M    ./Music/Electronic/DaftPunk.mp3
+700M    ./Music/Country/JohnnyCash.flac
+180M    ./Photos/Family/Grandma.png
+200M    ./Photos/Family/Kids.png
+5.0G    ./Movies/Avatar.mkv
+4.5G    ./Movies/ForrestGump.mp4
+1.9G    ./TV Shows/Friends/S01E01.avi
+1.8G    ./TV Shows/Friends/S01E02.avi
+950M    ./Music/HipHop/KendrickLamar.mp3
+1.0G    ./Music/RnB/Beyonce.flac
+300M    ./Photos/Travel/Paris.jpg
+320M    ./Photos/Travel/Rome.jpg
+6.0G    ./Movies/Dunkirk.mkv
+5.5G    ./Movies/Gladiator.mp4
+2.1G    ./TV Shows/Westworld/S01E01.mkv
+2.0G    ./TV Shows/Westworld/S01E02.mkv
+850M    ./Music/Blues/BBKing.mp3
+770M    ./Music/Folk/BobDylan.flac
+260M    ./Photos/Animals/Cat.jpg
+290M    ./Photos/Animals/Dog.jpg
+7.0G    ./Movies/InglouriousBasterds.mkv
+6.2G    ./Movies/DjangoUnchained.mp4
+2.3G    ./TV Shows/TheMandalorian/S01E01.mkv
+2.2G    ./TV Shows/TheMandalorian/S01E02.mkv
+920M    ./Music/Alternative/Radiohead.mp3
+1.1G    ./Music/Indie/ArcticMonkeys.flac
+210M    ./Photos/Food/Pizza.jpg
+240M    ./Photos/Food/Pasta.jpg
+8.0G    ./Movies/BladeRunner.mkv
+7.5G    ./Movies/2001ASpaceOdyssey.mp4
+2.5G    ./TV Shows/SquidGame/S01E01.mkv
+2.4G    ./TV Shows/SquidGame/S01E02.mkv
+1.0G    ./Music/Metal/Metallica.mp3
+980M    ./Music/Gospel/KirkFranklin.flac
+350M    ./Photos/Cities/NewYork.jpg
+380M    ./Photos/Cities/London.jpg
+9.0G    ./Movies/FightClub.mkv
+8.2G    ./Movies/TheSilenceOfTheLambs.mp4
+2.7G    ./TV Shows/Succession/S01E01.mkv
+2.6G    ./TV Shows/Succession/S01E02.mkv
+1.1G    ./Music/Classical/Mozart.mp3
+1.0G    ./Music/Jazz/JohnColtrane.flac
+400M    ./Photos/Landscapes/Desert.jpg
+420M    ./Photos/Landscapes/Beach.jpg
+10G     ./Movies/Se7en.mkv
+9.5G    ./Movies/GoneGirl.mp4
+2.9G    ./TV Shows/BreakingBad/S02E01.mp4
+2.8G    ./TV Shows/BreakingBad/S02E02.mp4
+1.2G    ./Music/Electronic/AphexTwin.mp3
+1.1G    ./Music/HipHop/ChildishGambino.flac
+480M    ./Photos/Abstract/Colors.jpg
+510M    ./Photos/Abstract/Shapes.jpg
+11G     ./Movies/Whiplash.mkv
+10.5G   ./Movies/LaLaLand.mp4
+3.1G    ./TV Shows/TheOffice/S02E01.avi
+3.0G    ./TV Shows/TheOffice/S02E02.avi
+1.3G    ./Music/Pop/ArianaGrande.mp3
+1.2G    ./Music/Country/CarrieUnderwood.flac
+550M    ./Photos/Animals/Birds.jpg
+580M    ./Photos/Animals/Fish.jpg
+13G     ./Movies/Trainspotting.mkv
+12.5G   ./Movies/Snatch.mp4
+3.3G    ./TV Shows/StrangerThings/S02E01.mkv
+3.2G    ./TV Shows/StrangerThings/S02E02.mkv
+1.4G    ./Music/Rock/LedZeppelin.mp3
+1.3G    ./Music/Blues/MuddyWaters.flac
+600M    ./Photos/Food/Desserts.jpg
+630M    ./Photos/Food/Vegetables.jpg
+14G     ./Movies/RequiemForADream.mkv
+13.5G   ./Movies/BlackSwan.mp4
+3.5G    ./TV Shows/TheCrown/S02E01.mp4
+3.4G    ./TV Shows/TheCrown/S02E02.mp4
+1.5G    ./Music/Jazz/NinaSimone.mp3
+1.4G    ./Music/Classical/Chopin.flac
+650M    ./Photos/Cities/Tokyo.jpg
+680M    ./Photos/Cities/Sydney.jpg
+15G     ./Movies/NoCountryForOldMen.mkv
+14.5G   ./Movies/ThereWillBeBlood.mp4
+3.7G    ./TV Shows/GameOfThrones/S02E01.mp4
+3.6G    ./TV Shows/GameOfThrones/S02E02.mp4
+1.6G    ./Music/Alternative/TheCure.mp3
+1.5G    ./Music/Indie/TheStrokes.flac
+700M    ./Photos/Landscapes/Mountains.jpg
+730M    ./Photos/Landscapes/Rivers.jpg
+16G     ./Movies/EternalSunshine.mkv
+15.5G   ./Movies/Amelie.mp4
+3.9G    ./TV Shows/Friends/S02E01.avi
+3.8G    ./TV Shows/Friends/S02E02.avi
+1.7G    ./Music/HipHop/DrDre.mp3
+1.6G    ./Music/RnB/ArethaFranklin.flac
+750M    ./Photos/Travel/Italy.jpg
+780M    ./Photos/Travel/Greece.jpg
+17G     ./Movies/Her.mkv
+16.5G   ./Movies/CallMeByYourName.mp4
+4.1G    ./TV Shows/Westworld/S02E01.mkv
+4.0G    ./TV Shows/Westworld/S02E02.mkv
+1.8G    ./Music/Metal/IronMaiden.mp3
+1.7G    ./Music/Gospel/MahaliaJackson.flac
+800M    ./Photos/Family/Reunion.png
+830M    ./Photos/Family/Trip.png
+18G     ./Movies/TheGrandBudapestHotel.mkv
+17.5G   ./Movies/FantasticMrFox.mp4
+4.3G    ./TV Shows/TheMandalorian/S02E01.mkv
+4.2G    ./TV Shows/TheMandalorian/S02E02.mkv
+1.9G    ./Music/Electronic/DaftPunkDiscovery.mp3
+1.8G    ./Music/Country/WillieNelson.flac
+850M    ./Photos/Food/Sushi.jpg
+880M    ./Photos/Food/Tacos.jpg
+19G     ./Movies/OnceUponATimeInHollywood.mkv
+18.5G   ./Movies/ReservoirDogs.mp4
+4.5G    ./TV Shows/SquidGame/S02E01.mkv
+4.4G    ./TV Shows/SquidGame/S02E02.mkv
+2.0G    ./Music/Blues/JohnLeeHooker.mp3
+1.9G    ./Music/Folk/JoanBaez.flac
+900M    ./Photos/Animals/Farm.jpg
+930M    ./Photos/Animals/Zoo.jpg
+20G     ./Movies/ParasiteDirectorCut.mkv
+19.5G   ./Movies/Oldboy.mp4
+4.7G    ./TV Shows/Succession/S02E01.mkv
+4.6G    ./TV Shows/Succession/S02E02.mkv
+2.1G    ./Music/Classical/Bach.mp3
+2.0G    ./Music/Jazz/LouisArmstrong.flac
+950M    ./Photos/Cities/Paris.jpg
+980M    ./Photos/Cities/NewDelhi.jpg
+21G     ./Movies/ApocalypseNow.mkv
+20.5G   ./Movies/FullMetalJacket.mp4
+4.9G    ./TV Shows/BreakingBad/S03E01.mp4
+4.8G    ./TV Shows/BreakingBad/S03E02.mp4
+2.2G    ./Music/Electronic/ChemicalBrothers.mp3
+2.1G    ./Music/HipHop/Outkast.flac
+1.0G    ./Photos/Abstract/Light.jpg
+1.1G    ./Photos/Abstract/Dark.jpg
+22G     ./Movies/TaxiDriver.mkv
+21.5G   ./Movies/RagingBull.mp4
+5.1G    ./TV Shows/TheOffice/S03E01.avi
+5.0G    ./TV Shows/TheOffice/S03E02.avi
+2.3G    ./Music/Pop/MichaelJackson.mp3
+2.2G    ./Music/Country/DollyParton.flac
+1.2G    ./Photos/Animals/Wild.jpg
+1.3G    ./Photos/Animals/Domestic.jpg
+23G     ./Movies/GoodWillHunting.mkv
+22.5G   ./Movies/DeadPoetsSociety.mp4
+5.3G    ./TV Shows/StrangerThings/S03E01.mkv
+5.2G    ./TV Shows/StrangerThings/S03E02.mkv
+2.4G    ./Music/Rock/Queen.mp3
+2.3G    ./Music/Blues/EricClapton.flac
+1.4G    ./Photos/Food/Fruits.jpg
+1.5G    ./Photos/Food/Grains.jpg
+24G     ./Movies/TheShining.mkv
+23.5G   ./Movies/Psycho.mp4
+5.5G    ./TV Shows/TheCrown/S03E01.mp4
+5.4G    ./TV Shows/TheCrown/S03E02.mp4
+2.5G    ./Music/Jazz/EllaFitzgerald.mp3
+2.4G    ./Music/Classical/Vivaldi.flac
+1.6G    ./Photos/Cities/Rome.jpg
+1.7G    ./Photos/Cities/Berlin.jpg
+25G     ./Movies/SevenSamurai.mkv
+24.5G   ./Movies/Rashomon.mp4
+5.7G    ./TV Shows/GameOfThrones/S03E01.mp4
+5.6G    ./TV Shows/GameOfThrones/S03E02.mp4
+2.6G    ./Music/Alternative/Nirvana.mp3
+2.5G    ./Music/Indie/TheKillers.flac
+1.8G    ./Photos/Landscapes/Desert2.jpg
+1.9G    ./Photos/Landscapes/Beach2.jpg
